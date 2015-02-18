@@ -9,11 +9,13 @@ generate.addEventListener('click',function(e){
   var canvas = document.querySelector('.canvas')
 
   $.getJSON(url,function(json){
-    canvas.appendChild(getSmartObject(key,json));
+    canvas.appendChild(getSmartObject(json));
   });
 
 })
 
-// var canvas = document.querySelector('.canvas')
-// canvas.appendChild(getSmartObject('example'))
+
+
+var canvas = document.querySelector('.canvas')
+canvas.appendChild(getSmartObject('example'))
 
