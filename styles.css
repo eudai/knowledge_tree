@@ -1,0 +1,35 @@
+
+/*.smart-object, .controls {*/
+/*  border: 2px solid;*/
+/*  border-radius: 25px;*/
+/*  padding: 10px;*/
+/*  margin: 10px;*/
+/*}*/
+
+.smart-object {
+
+  width: auto;
+  margin: 10px;
+}
+
+.toolbar {
+  margin-right: 0px;
+  margin-left: auto;
+}
+
+.collapsed .panel-body{
+  display: none;
+}
+
+.smart-object .navbar ul {
+  display: none;
+}
+
+.smart-object .navbar.active ul {
+  display: block;
+}
+
+
+.smart-object .navbar ul.active {
+  display: block;
+}
