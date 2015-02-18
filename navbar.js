@@ -15,7 +15,6 @@ var getNavBar = function(title,buttons){
   navbar.appendChild(collapser)
 
   navbar.addEventListener('mouseover',function(e){
-    console.log(e['toElement'].tagName)
     if ( navbar.className.indexOf('active') < 0 ) {
       navbar.className += ' active'
     }
@@ -28,7 +27,6 @@ var getNavBar = function(title,buttons){
   });
 
   navbar.addEventListener('click',function(e){
-    console.log(e['toElement'].tagName)
     if (e['toElement'].tagName !== 'A') {
       $(this).closest('.smart-object').toggleClass('collapsed');
     }
@@ -56,11 +54,14 @@ var getNavRight = function(){
   return nav_right
 }
 
-var getNavItem = function(class_name){
+var getNavItem = function(class_name,handler){
   var nav_item = document.createElement('li')
   nav_item.className = 'nav_item'
   var a = document.createElement('a')
   a.className = class_name
+  if (handler) { a.addEventListener('click',function(e){
+    eval(handler + "(e['toElement'])")
+  }) }
   nav_item.appendChild(a)
   return nav_item
 }

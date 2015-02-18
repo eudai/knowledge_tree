@@ -17,5 +17,5 @@ generate.addEventListener('click',function(e){
 
 
 var canvas = document.querySelector('.canvas')
-canvas.appendChild(getSmartObject('example'))
+canvas.appendChild(getSmartObject(''))
 
