@@ -28,7 +28,7 @@ var getNavBar = function(title,buttons){
 
   navbar.addEventListener('click',function(e){
     if (e['toElement'].tagName !== 'A') {
-      $(this).closest('.smart-object').toggleClass('collapsed');
+      $(this).closest('.smart-object').toggleClass('collapsed panel');
     }
   });
 
@@ -36,7 +36,7 @@ var getNavBar = function(title,buttons){
 }
 
 var getNavBarHeader = function(text){
-  var navbar_header = document.createElement('div')
+  var navbar_header = document.createElement('span')
   navbar_header.className = "navbar-header navbar-brand"
   navbar_header.innerHTML = text
   return navbar_header

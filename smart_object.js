@@ -1,24 +1,26 @@
 var getSmartObject = function(object) {
 
   var smart_object = document.createElement('div');
+  smart_object.className = 'smart-object panel-default collapsed';
 
   buttons =
   [
+    {class: 'glyphicon glyphicon-search'},
     {class: 'glyphicon glyphicon-plus', handler: "add"},
     {class: 'glyphicon glyphicon-pencil', handler:"edit"},
     {class: 'glyphicon glyphicon-trash', handler:"remove"},
+    {class: 'glyphicon glyphicon-link', handler:"link"},
     {class: 'glyphicon glyphicon-star'},
-    {class: 'glyphicon glyphicon-search'},
     {class: 'glyphicon glyphicon-fullscreen'},
   ]
   if (typeof object === 'object'){
-    smart_object.className = 'smart-object panel panel-default collapsed';
     for (var key in object) {
-      smart_object.appendChild(getNavBar(key,buttons))
-      smart_object.appendChild(getSmartObject(object[key]));
+      var child = getSmartObject(object[key])
+      var navbar = getNavBar(key,buttons)
+      child.appendChild(navbar)
+      smart_object.appendChild(child);
     }
   } else {
-    smart_object.className = 'smart-object panel panel-default collapsed';
     smart_object.appendChild(getNavBar(object,buttons))
   }
   return smart_object;
@@ -34,12 +36,15 @@ var edit = function(e){
     var input = document.createElement('input')
     input.className = ''
     input.value = text
-    input.addEventListener('blur',function(e){
-      console.log('submit recognized!')
-      edit(this)
+    // input.addEventListener('blur',function(e){
+    //   edit(this)
+    // })
+    input.addEventListener('keypress',function(e){
+      if (e.keyCode == 13){edit(this)}
     })
     header.empty()
     header.append(input)
+    input.focus()
   } else {
     var header = target.find('.navbar-header').first()
     var input = header.find('input').first()
@@ -53,10 +58,23 @@ var edit = function(e){
 var add = function(e){
   var target = $(e).closest('.smart-object')
   target.removeClass('collapsed')
+  target.addClass('panel')
   target.append(getSmartObject(''))
 }
 
 var remove = function(e){
   var target = $(e).closest('.smart-object')
   target.remove()
+}
+
+var link = function(e){
+  var target = $(e).closest('.smart-object')
+  var header = target.find('.navbar-header').first()
+  var url = header.text()
+  $.getJSON(url,function(json){
+    var smart_object = getSmartObject(json)
+    target.append(smart_object);
+  });
+
+
 }

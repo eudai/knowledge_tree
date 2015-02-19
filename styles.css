@@ -8,11 +8,15 @@
   margin-left: auto;
 }
 
-.collapsed .smart-object{
+.smart-object .smart-object{
+  display: block;
+}
+
+.smart-object.collapsed .smart-object{
   display: none;
 }
 
-.smart-object .navbar ul {
+.navbar ul {
   display: none;
 }
 
@@ -20,7 +24,3 @@
   display: block;
 }
 
-
-.smart-object .navbar ul.active {
-  display: block;
-}
