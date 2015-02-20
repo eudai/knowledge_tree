@@ -63,10 +63,8 @@ var maximize = function(e){
   if ( target.hasClass('glyphicon-fullscreen') ) {
     target.parentsUntil('.background').addClass('.background')
     var bg_objs = $('.smart-object.background')
-    if ( bg_objs.length > 0 ) {
-      for (var obj in bg_objs) {
-        bg_objs[obj].css( "z-index" , bg_objs[obj].css("z-index") + 1 )
-      }
+    for (var obj in bg_objs) {
+      bg_objs[obj].css( "z-index" , bg_objs[obj].css("z-index") + 1 )
     }
   } else {
     var bg_objs = $('.smart-object.background')
