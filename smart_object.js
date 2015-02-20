@@ -17,11 +17,13 @@ var getSmartObject = function(object) {
     for (var key in object) {
       var child = getSmartObject(object[key])
       var navbar = getNavBar(key,buttons)
-      child.appendChild(navbar)
-      smart_object.appendChild(child);
+      smart_object.appendChild(navbar)
+      smart_object.appendChild(child)
     }
   } else {
-    smart_object.appendChild(getNavBar(object,buttons))
+    var navbar = getNavBar(object,buttons)
+    navbar.id = object
+    smart_object.appendChild(navbar)
   }
   return smart_object;
 };
@@ -73,8 +75,6 @@ var link = function(e){
   var url = header.text()
   $.getJSON(url,function(json){
     var smart_object = getSmartObject(json)
-    target.append(smart_object);
+    target.replaceWith(smart_object)
   });
-
-
 }
