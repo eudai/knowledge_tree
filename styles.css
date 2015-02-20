@@ -30,7 +30,7 @@
   display: none;
 }
 
-.too-big {
+.smart-object.background {
   position: absolute;
   float: none;
   top: 0;
