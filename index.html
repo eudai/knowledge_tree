@@ -1,30 +1,23 @@
 <!doctype html>
-
 <html>
 <head>
-
+  <title>Smart Object</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-
-  <title>Knowledge Tree</title>
+  <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
   <link rel="stylesheet" href="styles.css">
   <script src="smart_object.js"></script>
   <script src="navbar.js"></script>
   <script src="toolbar.js"></script>
-
 </head>
-
-
 <body>
-
-  <script src="main.js"></script>
-
+  <script>
+    var body = document.querySelector('body')
+    body.appendChild(getSmartObject('Smart Object'))
+  </script>
 </body>
 </html>

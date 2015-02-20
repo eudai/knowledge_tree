@@ -25,7 +25,7 @@ var getSmartObject = function(key,value) {
       var child = getSmartObject(index,value[index])
       smart_object.appendChild(child)
     }
-  } else if (value) {
+  } else if (value != undefined) {
     var child = getSmartObject(value)
     smart_object.appendChild(child)
   }
