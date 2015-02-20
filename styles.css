@@ -1,26 +1,53 @@
 .smart-object {
-  width: auto;
   margin: 10px;
-}
-
-.toolbar {
-  margin-right: 0px;
-  margin-left: auto;
-}
-
-.smart-object .smart-object{
   display: block;
+  float: left;
+  resize: both;
+  overflow: auto;
+}
+
+.smart-object.pinned {
+  float: none;
+  resize: none;
+  overflow: auto;
+}
+
+.smart-object.collapsed {
+  resize: none;
+  overflow: none;
 }
 
 .smart-object.collapsed .smart-object{
   display: none;
 }
 
-.navbar ul {
+
+.navbar.active .navbar-collapse ul {
+  display: block;
+}
+
+.navbar .navbar-collapse ul {
   display: none;
 }
 
-.smart-object .navbar.active ul {
-  display: block;
+.too-big {
+  position: absolute;
+  float: none;
+  top: 0;
+  left: 0;
+  width: 99%;
+  height: 100%;
+  z-index: -1;
 }
+
+.maximized {
+  position: absolute;
+  float: none;
+  top: 0;
+  left: 0;
+  width: 98.5%;
+  height: 100%;
+  z-index: 1;
+}
+
 

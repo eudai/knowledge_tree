@@ -28,7 +28,7 @@ var getNavBar = function(title,buttons){
 
   navbar.addEventListener('click',function(e){
     if (e['toElement'].tagName !== 'A') {
-      $(this).closest('.smart-object').first().toggleClass('collapsed panel')
+      $(this).parent('.smart-object').first().toggleClass('collapsed panel')
     }
   });
 

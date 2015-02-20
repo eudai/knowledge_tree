@@ -1,7 +1,4 @@
-var getSmartObject = function(object) {
-
-  var smart_object = document.createElement('div');
-  smart_object.className = 'smart-object panel-default collapsed';
+var getSmartObject = function(key,value) {
 
   buttons =
   [
@@ -10,22 +7,27 @@ var getSmartObject = function(object) {
     {class: 'glyphicon glyphicon-pencil', handler:"edit"},
     {class: 'glyphicon glyphicon-trash', handler:"remove"},
     {class: 'glyphicon glyphicon-link', handler:"link"},
-    {class: 'glyphicon glyphicon-star'},
-    {class: 'glyphicon glyphicon-fullscreen'},
+    {class: 'glyphicon glyphicon-star-empty', handler:"favorite"},
+    {class: 'glyphicon glyphicon-pushpin', handler: "pin"},
+    {class: 'glyphicon glyphicon-fullscreen', handler: "maximize"},
   ]
-  if (typeof object === 'object'){
-    for (var key in object) {
-      var child = getSmartObject(object[key])
-      var navbar = getNavBar(key,buttons)
-      smart_object.appendChild(navbar)
+
+  var smart_object = document.createElement('div')
+  smart_object.className = 'smart-object panel-default collapsed'
+  // smart_object.setAttribute('draggable', true);
+  var navbar = getNavBar(key,buttons)
+  smart_object.appendChild(navbar)
+
+  if (typeof value === 'object'){
+    for (var index in value) {
+      var child = getSmartObject(index,value[index])
       smart_object.appendChild(child)
     }
-  } else {
-    var navbar = getNavBar(object,buttons)
-    navbar.id = object
-    smart_object.appendChild(navbar)
+  } else if (value) {
+    var child = getSmartObject(value)
+    smart_object.appendChild(child)
   }
-  return smart_object;
+  return smart_object
 };
 
 
@@ -36,11 +38,8 @@ var edit = function(e){
     var header = target.find('.navbar-header').first()
     var text = header.text()
     var input = document.createElement('input')
-    input.className = ''
+    input.className = 'form-control'
     input.value = text
-    // input.addEventListener('blur',function(e){
-    //   edit(this)
-    // })
     input.addEventListener('keypress',function(e){
       if (e.keyCode == 13){edit(this)}
     })
@@ -74,7 +73,25 @@ var link = function(e){
   var header = target.find('.navbar-header').first()
   var url = header.text()
   $.getJSON(url,function(json){
-    var smart_object = getSmartObject(json)
+    var smart_object = getSmartObject(url,json)
     target.replaceWith(smart_object)
   });
 }
+
+var favorite = function(e){
+  $(e).toggleClass('glyphicon-star glyphicon-star-empty')
+}
+
+var pin = function(e){
+  var target = $(e).closest('.smart-object')
+  target.toggleClass('pinned')
+}
+
+var maximize = function(e){
+  var target = $(e).closest('.smart-object')
+  $(e).toggleClass('glyphicon-fullscreen glyphicon-minus')
+  target.parent('.smart-object').toggleClass('too-big')
+  target.toggleClass('maximized')
+  target.removeClass('collapsed').addClass('panel')
+}
+
