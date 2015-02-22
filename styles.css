@@ -21,11 +21,11 @@
   display: none;
 }
 
-.navbar.active .navbar-collapse ul {
+.smart-object ul {
   display: block;
 }
 
-.navbar .navbar-collapse ul {
+.smart-object.collapsed ul {
   display: none;
 }
 

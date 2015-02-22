@@ -15,20 +15,18 @@ var getNavBar = function(title,buttons){
   navbar.appendChild(collapser)
 
   navbar.addEventListener('mouseover',function(e) {
-    if ( navbar.className.indexOf('active') < 0 ) {
-      navbar.className += ' active'
-    }
+    $(navbar).closest('.smart-object').addClass('active')
   });
 
   navbar.addEventListener('mouseout',function(e){
-    if ( navbar.className.indexOf('active') > 0 ) {
-      navbar.className = navbar.className.replace(' active','')
-    }
+    $(navbar).closest('.smart-object').removeClass('active')
   });
 
   navbar.addEventListener('click',function(e){
     if (e['toElement'].tagName !== 'A') {
-      $(this).parent('.smart-object').first().toggleClass('collapsed panel')
+      var smart_object = $(this).parent('.smart-object').first()
+      smart_object.toggleClass('collapsed panel')
+      smart_object.find('ul').first().toggleClass('visible')
     }
   });
 

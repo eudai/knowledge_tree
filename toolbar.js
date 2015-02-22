@@ -1,24 +1,27 @@
 
 var edit = function(e){
-  var target = $(e).closest('.smart-object')
-  if ( !target.hasClass('editing') ){
-    target.addClass('editing')
-    var header = target.find('.navbar-header').first()
-    var text = header.text()
-    var input = document.createElement('input')
-    input.className = 'form-control'
-    input.value = text
-    input.addEventListener('keypress',function(e){
-      if (e.keyCode == 13){edit(this)}
-    })
-    header.empty()
-    header.append(input)
-    input.focus()
-  } else {
-    var header = target.find('.navbar-header').first()
+  var smart_object = $(e).closest('.smart-object')
+  var header = smart_object.find('nav span').first()
+  var text = header.text()
+  var input = document.createElement('input')
+  input.className = 'form-control'
+  input.value = text
+  input.addEventListener('blur',function(e){
+    rename(smart_object)
+  })
+  input.addEventListener('keypress',function(e){
+    if (e.keyCode == 13) { rename(smart_object) }
+  })
+  header.empty()
+  header.append(input)
+  input.focus()
+}
+
+var rename = function(smart_object){
+  var header = smart_object.find('nav span').first()
+  if ( header.find('input').length > 0 ) {
     var input = header.find('input').first()
     var text = input.val()
-    target.removeClass('editing')
     input.remove()
     header.text(text)
   }
@@ -37,11 +40,31 @@ var remove = function(e){
 }
 
 var link = function(e){
-  var target = $(e).closest('.smart-object')
-  var header = target.find('.navbar-header').first()
-  var url = header.text()
+  var smart_object = $(e).closest('.smart-object')
+  var navbar = smart_object.find('nav').first()
+  var header = navbar.find('span').first()
+  var input = document.createElement('input')
+  input.className = 'form-control'
+  input.value = ''
+  input.addEventListener('blur',function(e){
+    load_link(smart_object)
+  })
+  input.addEventListener('keypress',function(e){
+    if (e.keyCode == 13) { load_link(smart_object) }
+  })
+  header.after(input)
+  input.focus()
+}
+
+var load_link = function(element) {
+  var target = $(element).closest('.smart-object')
+  var navbar = target.find('nav').first()
+  var title = navbar.find('span').text()
+  var input = navbar.find('input')
+  var url = input.val()
+  input.remove()
   $.getJSON(url,function(json){
-    var smart_object = getSmartObject(url,json)
+    var smart_object = getSmartObject(title,json)
     target.replaceWith(smart_object)
   });
 }
