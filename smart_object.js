@@ -5,6 +5,7 @@ var getSmartObject = function(key,value) {
     {class: 'glyphicon glyphicon-search'},
     {class: 'glyphicon glyphicon-plus', handler: "add"},
     {class: 'glyphicon glyphicon-pencil', handler:"edit"},
+    {class: 'glyphicon glyphicon-floppy-save', handler: 'save'},
     {class: 'glyphicon glyphicon-trash', handler:"remove"},
     {class: 'glyphicon glyphicon-link', handler:"link"},
     {class: 'glyphicon glyphicon-star-empty', handler:"favorite"},

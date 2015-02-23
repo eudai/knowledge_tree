@@ -7,23 +7,26 @@ var edit = function(e){
   input.className = 'form-control'
   input.value = text
   input.addEventListener('blur',function(e){
-    rename(smart_object)
+    rename(e['target'])
   })
   input.addEventListener('keypress',function(e){
-    if (e.keyCode == 13) { rename(smart_object) }
+    if (e.keyCode == 13) {
+      rename(e['target'])
+    }
   })
   header.empty()
   header.append(input)
   input.focus()
 }
 
-var rename = function(smart_object){
+var rename = function(e){
+  var smart_object = $(e).closest('.smart-object')
   var header = smart_object.find('nav span').first()
   if ( header.find('input').length > 0 ) {
     var input = header.find('input').first()
     var text = input.val()
-    input.remove()
     header.text(text)
+    input.remove()
   }
 }
 
@@ -100,3 +103,57 @@ var maximize = function(e){
   }
   $(e).toggleClass('glyphicon-fullscreen glyphicon-resize-small')
 }
+
+var add_json = function(e) {
+  var smart_object = $(e).closest('.smart-object')
+  var header = smart_object.find('nav span').first()
+  var textarea = document.createElement('textarea')
+  textarea.style.margin = '10px'
+  textarea.style.width = '95%'
+  textarea.style.height = '75%'
+  textarea.addEventListener('blur',function(e){
+    load_json(e['target'])
+  })
+  smart_object.append(textarea)
+  textarea.focus()
+}
+
+var load_json = function(e){
+  var smart_object = $(e).closest('.smart-object')
+  var title = smart_object.find('nav span').first().text()
+  var textarea = smart_object.find('textarea').first()
+  var json = textarea.val()
+  var obj = JSON.parse(JSON.stringify(json))
+  smart_object.replaceWith(getSmartObject(title,obj))
+  textarea.remove()
+}
+
+var save = function(e) {
+  var smart_object = $(e).closest('.smart-object')
+  var title = smart_object.find('nav span').first().text()
+  var json = retrieveJSON(smart_object);
+  var text = JSON.stringify(json)
+  var child = getSmartObject('JSON : ' + title, text)
+  var body = document.querySelector('body')
+  body.appendChild(child)
+}
+
+var retrieveJSON = function(element) {
+  var key = $(element).find('nav span').first().text()
+  var json = {}
+  var children = $(element).children('.smart-object')
+  if ( children.length > 1) {
+    var values = []
+    children.each(function(index){
+      values.push(retrieveJSON(children[index]))
+    })
+    json[key] = values
+  } else if ( children.length > 0 ) {
+    var value = retrieveJSON( children.first() )
+    json[key] = value
+  } else {
+    json = key
+  }
+  return json
+}
+
